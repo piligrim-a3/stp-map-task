@@ -1,10 +1,7 @@
 package com.company;
 
 import java.io.*;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -28,7 +25,7 @@ public class Main {
             }
 
 
-            //Сортируем данные по объему в порядке убывания
+            //Сортируем данные по объему в порядке убывания.
             Map<Integer, Integer> sortedLogs = unsortedLogs.entrySet().stream()
                     .sorted(Comparator.comparingInt(e -> -e.getValue()))
                     .collect(Collectors.toMap
@@ -40,12 +37,30 @@ public class Main {
                             )
                     );
 
-            //Проверка. Вывод 10 первых(наибольших) объемов данных.
-            //Имеем ключ(номер строки) и значение - объем данных.
-            for (int i = 0; i < 10; i++) {
-                System.out.println(sortedLogs.entrySet().toArray()[i]);
-            }
 
+            ArrayList<Integer> bytes = new ArrayList<>(); //Массив для хранения 10 значений указывающих на номера строк с наибольших количеством байт.
+            for (int i = 0; i < 10; i++) {
+                bytes.add((Integer) sortedLogs.keySet().toArray()[i]);
+            }
+            Collections.sort(bytes); //Отсортируем номера строк для по возрастанию, чтобы в дальнейшем упростить поиск.
+
+            reader.close();
+
+            reader = new BufferedReader(new FileReader("access.log"));
+            lineNumber = 1;
+
+
+            //Пройдем по файлу еще раз, сохраняя информацию о 10-ти строках, которые имеют наибольшее количество байт.
+            while ((line = reader.readLine()) != null) {
+                if (lineNumber == bytes.get(0)) {
+                    System.out.println(line);
+                    bytes.remove(0);
+                }
+                if (bytes.size() == 0) {
+                    break;
+                }
+                lineNumber++;
+            }
 
             reader.close();
         } catch (Exception e) {
