@@ -1,10 +1,10 @@
-1360716023.362  75466 192.168.7.22 TCP_MISS/200 301961928 GET http://192.168.0.205/tech/Java/netbeans-6.8-ml-windows.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360721948.466 167564 192.168.7.42 TCP_MISS/200 736319958 GET http://192.168.7.200/XPSP3v80-Wedding.iso - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360745155.922 301461 192.168.40.54 TCP_MISS_ABORTED/200 128155473 GET http://cs534200.userapi.com/u191829345/videos/ec1787d99a.720.mp4? - SOURCEHASH_PARENT/192.168.254.4 video/mp4
-1360823475.699 3390639 192.168.40.8 TCP_MISS/200 129338461 GET http://st2.kino-dom.tv/s/e260048e1b4b5397a1bb904edb0551e2/vsemogushiejonsoni/s02e02.flv - SOURCEHASH_PARENT/192.168.254.4 video/x-flv
-1360883882.352 701944 192.168.34.1 TCP_MISS/200 160929280 GET http://devbuilds.kaspersky-labs.com/devbuilds/AVPTool/avptool11/setup_11.0.0.1245.x01_2013_02_15_02_18.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360903142.190 4169722 192.168.34.1 TCP_MISS/200 130846688 GET http://downloads.comodo.com/cis/download/installs/1000/partners/cav_installer_3264_29.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360903261.281 4207412 192.168.34.1 TCP_MISS/200 130846688 GET http://downloads.comodo.com/cis/download/installs/2000/standalone/cfw_installer.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360903696.033 4288512 192.168.34.1 TCP_MISS/200 128830709 GET http://af-download.avg.com/filedir/inst/avg_free_x86_all_2013_2899a6087.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360906176.491 3732768 192.168.34.1 TCP_MISS/200 140177159 GET http://wl.dlservice.microsoft.com/download/1/D/7/1D7A2972-EF5A-46CF-AB3C-8767E6EAF40C/ru/wlsetup-all.exe - SOURCEHASH_PARENT/192.168.254.4 application/octet-stream
-1360906240.744 4707344 192.168.34.1 TCP_MISS/200 121201215 GET http://openfx.org/download/install.msi - SOURCEHASH_PARENT/192.168.254.4 text/plain
+IP-address: 192.168.93.1 bytes: 1048110743
+IP-address: 192.168.35.254 bytes: 1151512745
+IP-address: 192.168.35.101 bytes: 1355739099
+IP-address: 192.168.66.12 bytes: 1127823974
+IP-address: 192.168.49.7 bytes: 1128473073
+IP-address: 192.168.66.2 bytes: 1282754757
+IP-address: 192.168.73.4 bytes: 1160581312
+IP-address: 192.168.72.4 bytes: 1055357547
+IP-address: 192.168.34.2 bytes: 1286713681
+IP-address: 192.168.44.3 bytes: 1227965340
