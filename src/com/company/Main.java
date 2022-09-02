@@ -10,8 +10,9 @@ import java.util.stream.Collectors;
 
 public class Main {
     public static void main(String[] args) {
-        Map<Integer, Integer> unsortedLogs = new HashMap<>(); //Первое значение ключ, второе значение объем данных.
+        Map<String, Integer> unsortedLogs = new HashMap<>(); //Первое значение ключ, второе значение объем данных.
         String filename = "out.txt"; //Выходной файл.
+        int targetAmount = 10;
 
         try {
             BufferedReader reader = new BufferedReader(new FileReader("access.log")); //Пытаемся открыть файл для считывания.
@@ -21,17 +22,27 @@ public class Main {
 
             int lineNumber = 1;
             String[] split;
+
+            String key;
+            int value;
             while ((line = reader.readLine()) != null) {
                 split = line.split(regex); //Разделяем строку используя фильтр.
 
                 //Исходя из структуры log файла, 4 элемент будет являться необходимым для нас количеством байт.
-                //Поэтому добавляем ключ - номер считываемой линии и само количество байт.
-                unsortedLogs.put(lineNumber, Integer.parseInt(split[4]));
+                //Ключом будет являться IP-адрес. Если IP-адрес повторяется, увеличим количество байт на соответствующую величину.
+                key = split[2];
+                value = Integer.parseInt(split[4]);
+
+                if (unsortedLogs.containsKey(key)) {
+                    value += unsortedLogs.get(key);
+                }
+                unsortedLogs.put(key, value);
                 lineNumber++;
             }
 
+
             //Сортируем данные по объему в порядке убывания.
-            Map<Integer, Integer> sortedLogs = unsortedLogs.entrySet().stream()
+            Map<String, Integer> sortedLogs = unsortedLogs.entrySet().stream()
                     .sorted(Comparator.comparingInt(e -> -e.getValue()))
                     .collect(Collectors.toMap
                             (
@@ -44,28 +55,20 @@ public class Main {
                             )
                     );
 
-            ArrayList<Integer> bytes = new ArrayList<>(); //Массив для хранения 10 значений указывающих на номера строк с наибольших количеством байт.
-            for (int i = 0; i < 10; i++) {
-                bytes.add((Integer) sortedLogs.keySet().toArray()[i]);
-            }
-            Collections.sort(bytes); //Отсортируем номера строк для по возрастанию, чтобы в дальнейшем упростить поиск.
-
-            reader.close();
-
-            reader = new BufferedReader(new FileReader("access.log"));
-            lineNumber = 1;
-
-            while ((line = reader.readLine()) != null) {
-                if (lineNumber == bytes.get(0)) {
-                    Files.writeString(Paths.get(filename), line, StandardOpenOption.APPEND); //Добавляем к файлу текущую строку.
-                    bytes.remove(0);
-                    if (bytes.size() != 0) {
-                        Files.writeString(Paths.get(filename), "\n", StandardOpenOption.APPEND); //Переводим каретку на новую строку.
-                    } else {
-                        break;
-                    }
+            Map<String, Integer> highest = new HashMap<>();
+            int count = 0;
+            //Запишем 10 IP-адресов с наибольшим количеством байт в новую коллекцию.
+            for (Map.Entry<String, Integer> entry: sortedLogs.entrySet()) {
+                highest.put(entry.getKey(), entry.getValue());
+                count++;
+                if (count >= targetAmount) {
+                    break;
                 }
-                lineNumber++;
+            }
+
+            //Запишем все пары ключ-значение в выходной файо.
+            for (Map.Entry<String, Integer> entry: highest.entrySet()) {
+                Files.writeString(Paths.get(filename), "IP-address: " + entry.getKey() + " bytes: " + entry.getValue() + "\n", StandardOpenOption.APPEND);
             }
 
             reader.close();
