@@ -1,10 +1,7 @@
 package task;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.FileNotFoundException;
-import java.util.Map;
-import java.util.HashMap;
+import java.io.*;
+import java.util.*;
 import java.util.stream.Stream;
 import java.util.stream.Collectors;
 
@@ -12,6 +9,7 @@ public class Main {
     public static void main(String[] args) {
 
         Map<String, Integer> logs = new HashMap<>();
+
         try {
             BufferedReader reader = new BufferedReader(new FileReader("access.log"));
             String line;
@@ -35,6 +33,10 @@ public class Main {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
+
         //Создаем новую коллекцию, отсортированную по количеству байт и состоящую из 10 ip 
         Map<String,Integer> sortedLogs =
                 logs.entrySet().stream()
@@ -48,6 +50,17 @@ public class Main {
                             )
                         );
 
-        System.out.println(sortedLogs);
+                        
+        //Создаем файл с ip, отсортированными по количеству байт
+        new File("output.txt");
+        try {
+            FileWriter writer = new FileWriter("output.txt");
+            for (Map.Entry<String, Integer> entry: sortedLogs.entrySet()) {
+                writer.write("Ip-address: " + entry.getKey() + " bytes: " + entry.getValue() + "\n");
+            }
+            writer.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
