@@ -16,10 +16,19 @@ public class Main {
             String ip;
             int bytes;
             while ((line = bufferedReader.readLine()) != null) {
+                
                 //Пробел разделяет элементы log-файла
                 ip = line.split(" +")[2]; // ip - 3й элемент
                 bytes = Integer.parseInt(line.split(" +")[4]); //Количество байт - 5й элемент
-                logs.put(ip, bytes); // Добавляем ip и количество байт
+                
+                //Если ip уже встречался, увеличиваем значение и добавляем его
+                if(logs.containsKey(ip)){
+                    logs.put(ip, bytes + logs.get(ip));
+                }
+                //Если ip не встречался, добавляем его
+                else{
+                    logs.put(ip, bytes);
+                }
             }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
